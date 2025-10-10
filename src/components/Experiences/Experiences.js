@@ -1,139 +1,186 @@
-import React, { useEffect } from "react";
-import "./Experiences.css";
-import '../../../src/style.css';
+import React, { useEffect, useMemo, useRef } from "react";
+import { FiMapPin, FiExternalLink } from "react-icons/fi";
 import Particle from "../Particle";
+import "./Experiences.css";
 
-const ExperienceTimeline = () => {
-  useEffect(() => {
-    const timelineItems = document.querySelectorAll(".timeline-item");
+const EXPERIENCES = [
+  {
+    role: "Research Software Engineer",
+    company: "UIC College of Applied Health Sciences",
+    period: "Jun 2025 – Present",
+    start: "2025-06-01",
+    end: null,
+    location: "Chicago, IL",
+    link: null,
+    summary:
+      "Google-funded RAG chatbot (Azure OpenAI + FAISS/Pinecone + WhatsApp); reliable/observable K8s services with Terraform & Helm.",
+    impact: ["~1.2s median retrieval", "60% fewer failures", "50+ concurrent users"],
+    highlights: [
+      "Real-time escalation on WhatsApp with durable sessions via Cloudflare D1 + KV.",
+      "Production hardening: health probes, centralized logging, golden-path runbooks.",
+      "UX instrumentation to close the loop between retrieval quality and satisfaction.",
+    ],
+    tags: ["AI-Native", "FastAPI", "Kubernetes", "Terraform", "Twilio"],
+  },
+  {
+    role: "Graduate Assistant — Full-Stack Developer",
+    company: "University of Illinois Chicago",
+    period: "Aug 2023 – May 2025",
+    start: "2023-08-01",
+    end: "2025-05-31",
+    location: "Chicago, IL",
+    link: null,
+    summary:
+      "Architected & scaled U-PASS+, serving 65K+ students with sub-120ms p99 and 99.95% uptime; accessible UIs + robust APIs.",
+    impact: ["65K+ students", "p99 <120ms", "99.95% uptime"],
+    highlights: [
+      "Production-grade REST APIs in Python & C#; tests reduced escaped bugs ~35%.",
+      "ACID transactions, migrations, indexing → zero-downtime releases.",
+      "WCAG 2.1-AA rebuilds → ~35% faster pages on low-end devices.",
+    ],
+    tags: ["React", "FastAPI", ".NET", "SQL", "Accessibility"],
+  },
+  {
+    role: "Web Developer",
+    company: "GetLect",
+    period: "May 2022 – Apr 2023",
+    start: "2022-05-01",
+    end: "2023-04-30",
+    location: "Remote",
+    link: null,
+    summary:
+      "Modular React UI from Figma; refactor monolith → Spring Boot services; AWS migration for perf & cost wins.",
+    impact: ["30% fewer on-prem servers", "$8K/yr savings", "99.9% uptime"],
+    highlights: [
+      "25+ reusable components; ~30% fewer UI revision cycles.",
+      "Nginx + health checks + rate limiting → consistent latency.",
+    ],
+    tags: ["React", "Spring Boot", "AWS", "Nginx"],
+  },
+  {
+    role: "Front-End Developer",
+    company: "Cureya",
+    period: "Aug 2021 – Sep 2021",
+    start: "2021-08-01",
+    end: "2021-09-30",
+    location: "Remote",
+    link: null,
+    summary:
+      "Multi-screen React UI with accessibility; faster delivery with wireframes + unit tests.",
+    impact: ["20% faster delivery", "Keyboard accessible"],
+    highlights: [
+      "Figma wireframes to align scope, reduce ambiguity.",
+      "Unit tests for quicker debugging and higher reliability.",
+    ],
+    tags: ["React", "Testing", "Accessibility"],
+  },
+];
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("show");
-            observer.unobserve(entry.target); 
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
+/** Group by year for sticky markers */
+function groupByYear(items) {
+  const groups = {};
+  items.forEach((it) => {
+    const year = new Date(it.start).getFullYear();
+    groups[year] = groups[year] || [];
+    groups[year].push(it);
+  });
+  // newest first
+  return Object.entries(groups)
+    .sort((a, b) => Number(b[0]) - Number(a[0]))
+    .map(([year, arr]) => ({ year, items: arr }));
+}
 
-    timelineItems.forEach((item) => observer.observe(item));
-
-    return () => {
-      timelineItems.forEach((item) => observer.unobserve(item));
-    };
-  }, []);
-
+const ExperienceCard = ({ exp, align = "left" }) => {
   return (
-    <div className="timeline-container">
-      <Particle />
-        <div className="experiences-heading" style={{marginBottom: '40px'}}>
-            <h2>My <span className="purple">Experiences</span></h2>
+    <article className={`xp-card ${align}`} tabIndex={0}>
+      <header className="xp-header">
+        <h3 className="xp-role">{exp.role}</h3>
+        <div className="xp-meta text-center">
+          <span className="xp-company">{exp.company}</span>
+          <span className="xp-dot" aria-hidden>•</span>
+          <span className="xp-period">{exp.period}</span>
         </div>
-      <div className="timeline-line"></div>
+        <div className="xp-location">
+          <FiMapPin aria-hidden /> {exp.location}
+          {exp.link && (
+            <a href={exp.link} className="xp-ext" target="_blank" rel="noreferrer" aria-label="Open link">
+              <FiExternalLink />
+            </a>
+          )}
+        </div>
+      </header>
 
-      <div className="timeline-item left">
-        <div className="circle"></div>
-          <div className="content-box">
-            <h3 className="title"><b>Graduate Assistant - Full Stack Developer</b></h3>
-            <p className="subtitle"><span>University of Illinois Chicago</span> <span>August 2023 – Preset</span></p>
-            <ul className="description">
-              <li>
-              • Developed scalable RESTful APIs integrated with responsive interfaces, ensuring secure JSON transmission, 99.9% 
-              uptime, and seamless handling of over 250K monthly requests to enhance functionality and user experience. 
-              </li>
-              <li>
-              • Resolved 200+ JIRA tickets, addressing diverse website issues while working within an Agile Scrum framework to 
-                ensure smooth project execution and continuous improvement.  
-              </li>
-              <li>
-              • Collaborated with the accessibility team to implement WCAG-compliant improvements, expanding usability for 
-                diverse users and increasing accessibility scores by 20%.
-              </li>
-              <li>
-              • Automated data processing with ETL scripts, reducing manual effort by 30% and improving operational efficiency.
-              </li>
-            </ul>
-          </div>
-      </div>
-      
+      <p className="xp-summary">{exp.summary}</p>
 
-      <div className="timeline-item right">
-        <div className="circle"></div>
-        <div className="content-box">
-          <h3 className="title">Full Stack Developer Intern</h3>
-          <p className="subtitle">
-            <span>University of Illinois Chicago</span> <span>May 2024 - August 2024</span>
-          </p>
-          <ul className="description">
-            <li>
-            • Spearheaded the development of U-PASS+ with CTA and Metra, a transit enrollment platform for 10,000+ 
-              students, demonstrating leadership and teamwork while generating over $3M in funding. 
-            </li>
-            <li>
-            • Transitioned the authentication system from cookie-based to Azure AD token-based using react’s MSAL.js library, 
-              increased security by 40%, and reduced login issues by 30%.  
-            </li>
-            <li>
-            • Implemented SQL migrations to enable zero-downtime database updates across three different environments. 
-            </li>
-            <li>
-            • Developed and executed C# integrated tests to validate key functionalities and reduce production bugs.  
-            </li>
-          </ul>
-        </div>
-      </div>
+      <ul className="xp-impact" aria-label="Key outcomes">
+        {exp.impact.map((chip) => (
+          <li key={chip} className="chip">{chip}</li>
+        ))}
+      </ul>
 
-      <div className="timeline-item left">
-        <div className="circle"></div>
-        <div className="content-box">
-          <h3 className="title">Web Developer</h3>
-          <p className="subtitle">
-            <span>GetLect</span> <span>May 2022 - October 2022</span>
-          </p>
-          <ul className="description">
-            <li>
-            • Improved user experience by actively participating in the design of a more intuitive user interface, utilizing Figma to create 
-            wireframes, which resulted in a 15% increase in user engagement.  
-            </li>
-            <li>
-            • Engineered high-scalable PHP code for the website's backend, reducing code smells by 20% through systematic refactoring, 
-            enhancing code maintainability. 
-            </li>
-            <li>
-            • Led the successful migration of the website from cPanel to AWS, resulting in a 30% improvement in page load times and 
-            overall performance metrics.  
-            </li>
-            <li>
-            • Dockerized backend services, ensuring consistent deployments and reducing environment-specific issues by 50%.  
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div className="timeline-item right">
-        <div className="circle"></div>
-        <div className="content-box">
-          <h3 className="title">Front-End Developer</h3>
-          <p className="subtitle">
-            <span>Cureya</span> <span>August 2021 - September 2021</span>
-          </p>
-          <ul className="description">
-            <li>
-            • Created comprehensive wireframes for the company's website using Figma, streamlining the design process and achieving a 20% reduction in development time. 
-            </li>
-            <li>
-            • Developed a web application with multiple screens and implemented rigorous unit-test cases using HTML, CSS, and React.js, ensuring a 15% increase in code reliability and faster debugging. 
-            </li>
-            <li>
-            • Assisted in making the application compatible with all browsers and Keyboard Accessible.
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
+      <ul className="xp-bullets">
+        {exp.highlights.map((h) => (
+          <li key={h}>{h}</li>
+        ))}
+      </ul>
+
+      {exp.tags?.length ? (
+        <ul className="xp-tags" aria-label="Tech & focus">
+          {exp.tags.map((t) => <li key={t}>{t}</li>)}
+        </ul>
+      ) : null}
+    </article>
   );
 };
 
-export default ExperienceTimeline;
+export default function Experiences() {
+  const containerRef = useRef(null);
+  const grouped = useMemo(() => groupByYear(EXPERIENCES), []);
+
+  useEffect(() => {
+    // reveal animation on enter
+    const el = containerRef.current;
+    if (!el) return;
+    const cards = Array.from(el.querySelectorAll(".xp-card"));
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add("in")),
+      { threshold: 0.15 }
+    );
+    cards.forEach((c) => io.observe(c));
+    return () => io.disconnect();
+  }, []);
+
+  return (
+    <section className="xp-wrap" ref={containerRef} id="experiences" aria-label="Experience timeline">
+      <Particle />
+
+      <div className="xp-heading">
+        <h2>My <span className="purple">Experience</span></h2>
+        <p className="xp-sub">
+          A craft-driven path building reliable, human-centered systems — from AI-native products to scalable cloud backends.
+        </p>
+      </div>
+
+      <div className="xp-rail" aria-hidden />
+
+      {/* Timeline with sticky year markers */}
+      <div className="xp-timeline">
+        {grouped.map(({ year, items }, groupIdx) => (
+          <div className="xp-year-group" key={year}>
+            <div className="xp-year" aria-label={`Year ${year}`}>{year}</div>
+
+            <div className="xp-grid">
+              {items.map((exp, i) => (
+                <ExperienceCard
+                  key={exp.role + exp.start}
+                  exp={exp}
+                  align={(groupIdx + i) % 2 ? "right" : "left"}
+                />
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
