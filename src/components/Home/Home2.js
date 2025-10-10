@@ -4,13 +4,13 @@ import myImg from "../../Assets/profile-photo.jpg";
 import Tilt from "react-parallax-tilt";
 import {
   AiFillGithub,
-  AiOutlineMail, // Added import for mail icon
+  AiOutlineMail, 
 } from "react-icons/ai";
 import { FaLinkedinIn } from "react-icons/fa";
 
 function Home2() {
   return (
-    <Container fluid className="home-about-section" id="about">
+    <Container fluid className="home-about-section" id="intro">
       <Container>
         <Row>
           <Col md={8} className="home-about-description">
@@ -18,24 +18,22 @@ function Home2() {
               LET ME <span className="purple"> INTRODUCE </span> MYSELF
             </h1>
             <p className="home-about-body">
-              Passionate about building
-              <i>
-                <b className="purple"> Web Technologies </b> and leveraging {" "}
-                <b className="purple">
-                  AI </b> & <b className="purple">Blockchain &nbsp; 
-                </b>
-              </i>
-              to solve real-world challenges.
+              A <b className="purple">Full-stack engineer</b> who loves building
+              <i><b className="purple"> thoughtful web products</b></i> and applying
+              <i><b className="purple"> AI</b></i> to real-world problems.
               <br />
               <br />
-              Experienced in developing with
-              <i>
-                <b className="purple"> Python, Javascript, C# and ASP.NET</b>{" "}
-              </i>
-              as well as modern frameworks like{" "}<i><b className="purple">React.js</b></i> and <i><b className="purple">Next.js</b></i>
+              I work comfortably across the stack with
+              <i><b className="purple"> Python, JavaScript, C#, and ASP.NET</b></i>,
+              and modern frameworks like <i><b className="purple">React.js</b></i>,
+              <i><b className="purple"> Next.js</b></i>, and <i><b className="purple">FastAPI</b></i>.
+              I enjoy turning ideas into clean UIs, well-designed APIs, and cloud-ready services.
               <br />
               <br />
-              Dedicated to crafting <i><b className="purple">seamless, secure</b></i> and <i><b className="purple">scalable solutions</b></i> that drive user satisfaction and product impact.
+              I’m dedicated to crafting <i><b className="purple">seamless</b></i>,
+              <i><b className="purple"> secure</b></i>, and
+              <i><b className="purple"> scalable solutions</b></i> from AI-native features to
+              accessible interfaces, so products feel fast, trustworthy, and genuinely helpful.
             </p>
           </Col>
           <Col md={4} className="myAvtar">
