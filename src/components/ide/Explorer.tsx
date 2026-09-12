@@ -78,7 +78,7 @@ export function Explorer() {
         <div>
           <span style={{ color: 'var(--green)' }}>●</span> open to Software Engineer roles
         </div>
-        <div>Chicago, IL · remote-friendly</div>
+        <div>Indianapolis, IN · Open to Relocation</div>
       </div>
     </aside>
   )

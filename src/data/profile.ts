@@ -5,7 +5,7 @@ export const profile = {
   name: 'Bhavyashree Putta',
   handle: 'bhavya',
   title: 'Software Engineer · Full-Stack & AI',
-  location: 'Chicago, IL',
+  location: 'Indianapolis, IN',
   email: 'bhavyaputta13@gmail.com',
   github: 'https://github.com/Bhavyashreeputta',
   linkedin: 'https://www.linkedin.com/in/bhavyashree-putta-b120261b8/',

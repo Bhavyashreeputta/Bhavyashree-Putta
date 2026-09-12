@@ -119,7 +119,7 @@ const commands: Record<string, { desc: string; run: (args: string[], ctx: ShellC
     run: (_, ctx) => [
       c(`   ██████╗   ${profile.handle}@portfolio`, ACC),
       c(`   ██╔══██╗  ----------------`, ACC),
-      c(`   ██████╔╝  OS: Chicago, IL`, ACC),
+      c(`   ██████╔╝  OS: Indianapolis, IN`, ACC),
       c(`   ██╔══██╗  Kernel: M.S. CS, UIC (3.88)`, ACC),
       c(`   ██████╔╝  Uptime: 3+ years in production`, ACC),
       c(`   ╚═════╝   Shell: python / java / c# / ts`, ACC),

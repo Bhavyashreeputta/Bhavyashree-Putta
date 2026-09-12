@@ -25,7 +25,7 @@ export const experience: Experience[] = [
     period: 'Dec 2025 – Present',
     start: '2025-12-01',
     end: null,
-    location: 'Remote · Chicago, IL',
+    location: 'Remote · Indianapolis, IN',
     summary:
       'Full-stack owner on the United For ALICE research platform — the dataset 44 state United Ways and nonprofit partners use to measure financial hardship across 3,100+ US counties and shape local policy.',
     bullets: [
