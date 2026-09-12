@@ -18,7 +18,7 @@ export const profile = {
     'React on the front, queues in the middle, ACID at the bottom.',
   ],
   summary:
-    'Software Engineer with 3+ years building full-stack products, event-driven backends and AI-powered retrieval systems that carry real load: 65K+ students on a transit platform, 50M+ census rows in production, 119K esports matches behind a vector index. I write production code in Python, Java and C#, and I care about the same things in all three — correctness under concurrency, observability, and boring, reliable releases.',
+    'Software Engineer with 3+ years building the systems that 44 state United Ways, nonprofits, researchers and policy makers rely on to measure financial hardship across 3,100+ US counties — plus a transit platform for 65K+ students and a statewide GIS tool for public-health planners. Full-stack products, event-driven backends and AI-powered retrieval, written in Python, Java and C# with the same standards in each: correctness under concurrency, observability, and boring, reliable releases.',
   stats: [
     { label: 'users served', value: '65K+', note: 'U-PASS+ transit platform' },
     { label: 'rows in prod', value: '50M+', note: 'ACS census ETL → MySQL' },

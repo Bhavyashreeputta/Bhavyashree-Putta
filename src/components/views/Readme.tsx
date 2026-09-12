@@ -100,31 +100,9 @@ export function Readme() {
       </div>
 
       {/* summary */}
-      <p className="mt-10 max-w-3xl text-[15px] leading-relaxed" style={{ color: 'var(--fg)' }}>
+      <p className="mt-12 max-w-3xl text-[15px] leading-relaxed" style={{ color: 'var(--fg)' }}>
         {profile.summary}
       </p>
-
-      {/* stats */}
-      <div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-4">
-        {profile.stats.map((s, i) => (
-          <motion.div
-            key={s.label}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 + i * 0.07 }}
-            className="rounded-lg border p-4"
-            style={{ borderColor: 'var(--border)', background: 'var(--bg-1)' }}
-          >
-            <div className="mono text-2xl font-bold" style={{ color: 'var(--accent)' }}>
-              {s.value}
-            </div>
-            <div className="mt-1 text-[12px] font-medium">{s.label}</div>
-            <div className="mono mt-0.5 text-[10.5px]" style={{ color: 'var(--fg-faint)' }}>
-              {s.note}
-            </div>
-          </motion.div>
-        ))}
-      </div>
 
       <H2 hint="every box is something I've run in production">systems I ship</H2>
       <SystemDiagram />
